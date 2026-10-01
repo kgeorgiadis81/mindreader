@@ -4,7 +4,7 @@ import { MAX_HISTORY } from "@/lib/mindreader-types";
 const QUESTIONS = [
   "Είναι κάτι φυσικό που θα μπορούσες να αγγίξεις;",
   "Είναι ζωντανό — ή ήταν κάποτε ζωντανό;",
-  "Είναι συγκεκριμένο πρόσωπο, χαρακτήρας ή ονομαστικός φορέας;",
+  "Είναι συγκεκριμένο πρόσωπο, χαρακτήρας ή οντότητα με όνομα;",
   "Είναι μεγαλύτερο από ένα καρβέλι ψωμί;",
   "Θα αναγνώριζαν οι περισσότεροι το όνομά του;",
   "Είναι κάτι που συναντάς στην καθημερινότητα;",
@@ -48,18 +48,18 @@ function mockHunches(history: HistoryEntry[]): string[] {
     return ["Inception", "The Shawshank Redemption", "ένα τραγούδι κολλημένο στο μυαλό σου"];
   }
   if (!physical && person) {
-    return ["φανταστικός χαρακτήρας", "ιστορικό πρόσωπο", "κάποιον που λείπεις"];
+    return ["φανταστικός χαρακτήρας", "ιστορικό πρόσωπο", "κάποιος που σου λείπει"];
   }
   if (!physical) {
     return ["ελευθερία", "σπίτι", "άγχος"];
   }
   if (alive && person) {
-    return ["η μαμά σου", "Taylor Swift", "συνάδελφος"];
+    return ["η μαμά σου", "η Taylor Swift", "ένας συνάδελφος"];
   }
   if (alive) {
-    return ["χρυσός ρετρίβερ", "σπιτό γάτο", "ελέφαντας"];
+    return ["ένας χρυσός ρετρίβερ", "μια γάτα", "ένας ελέφαντας"];
   }
-  return ["ένα smartphone", "ένας φλίτζανας καφέ", "πλαστική πάπια"];
+  return ["ένα κινητό", "ένα φλιτζάνι καφέ", "μια πλαστική πάπια"];
 }
 
 function mockFinalGuess(history: HistoryEntry[]): string {
@@ -82,8 +82,8 @@ function mockFinalGuess(history: HistoryEntry[]): string {
   if (alive && person) return "η μαμά σου";
   if (alive && !person && big) return "ένας ελέφαντας";
   if (alive) return "ένας χρυσός ρετρίβερ";
-  if (manmade && handheld && daily) return "το smartphone σου";
-  if (manmade && indoor && !big) return "ένας φλίτζανας καφέ";
+  if (manmade && handheld && daily) return "το κινητό σου";
+  if (manmade && indoor && !big) return "ένα φλιτζάνι καφέ";
   if (manmade && big) return "ένα ψυγείο";
   if (!manmade && indoor) return "ένα φυτό εσωτερικού χώρου";
   return "μια πλαστική πάπια";

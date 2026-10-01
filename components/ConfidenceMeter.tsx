@@ -21,7 +21,7 @@ export function ConfidenceMeter({ value }: ConfidenceMeterProps) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={clamped}
-        aria-label="Εμπιστοσύνη ανάγνωσης νοός"
+        aria-label="Εμπιστοσύνη στην ανάγνωση του μυαλού"
       >
         <div
           className={cn(

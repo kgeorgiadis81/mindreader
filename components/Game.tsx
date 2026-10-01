@@ -26,17 +26,17 @@ const THINKING_LINES = [
 
 const WIN_LINES = [
   "Μην κοιτάς τόσο έκπληκτος.",
-  "Το μυαλό σου είναι πιο ηχηρό απ’ ό,τι νομίζεις.",
+  "Το μυαλό σου ακούγεται πιο δυνατά απ’ ό,τι νομίζεις.",
   "Δεν μάντευα.",
-  "Δέκα ερωτήσεις ήταν γενναιοδωρία.",
-  "Ο θόρυβος καθάρισε.",
-  "Σε πιάσαμε.",
+  "Δέκα ερωτήσεις ήταν πολλές.",
+  "Το σήμα καθάρισε.",
+  "Σε έπιασα.",
 ];
 
 const ANSWER_BUTTONS: { label: string; value: Answer; shortcut: string }[] = [
   { label: "ΝΑΙ", value: "yes", shortcut: "Y" },
   { label: "ΟΧΙ", value: "no", shortcut: "O" },
-  { label: "ΜΕΡΙΚΑ / ΚΑΠΩΣ", value: "sometimes", shortcut: "S" },
+  { label: "ΜΕΡΙΚΕΣ ΦΟΡΕΣ", value: "sometimes", shortcut: "S" },
   { label: "ΔΕΝ ΞΕΡΩ", value: "unknown", shortcut: "U" },
 ];
 
@@ -136,10 +136,10 @@ function MindSignal({
   return (
     <section
       className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
-      aria-label="Σήμα νοός"
+      aria-label="Σήμα του μυαλού"
     >
       <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-300/80">
-        Σήμα νοός
+        Σήμα του μυαλού
       </p>
       <ConfidenceMeter value={confidence} />
       {hunches.length > 0 ? (
@@ -303,10 +303,10 @@ export function Game() {
     }
     const text =
       state.phase === "won"
-        ? `Ο ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ διάβασε το μυαλό μου σε ${state.history.length} ερωτήσεις.`
-        : "Νίκησα τον ΑΝΑΓΝΩΣΤΗ ΝΟΟΥ.";
+        ? `Ο MINDREADER διάβασε το μυαλό μου σε ${state.history.length} ερωτήσεις.`
+        : "Νίκησα τον MINDREADER.";
     try {
-      await navigator.share({ title: "ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ", text });
+      await navigator.share({ title: "MINDREADER", text });
     } catch {
       // User cancelled share; ignore.
     }
@@ -329,7 +329,7 @@ export function Game() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.42em] text-cyan-300/80">
           Μετάδοση
         </p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-[0.28em] text-white">ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ</h1>
+        <h1 className="mt-2 text-3xl font-semibold tracking-[0.28em] text-white">MINDREADER</h1>
       </header>
 
       <main className="flex flex-1 flex-col">
@@ -616,12 +616,12 @@ function LostPhase({
       </p>
       {!state.revealed ? (
         <>
-          <p className="text-lg text-zinc-300">Τι σκέφτεσαι πραγματικά;</p>
+          <p className="text-lg text-zinc-300">Τι σκεφτόσουν πραγματικά;</p>
           <Input
             value={state.secret}
             maxLength={MAX_SECRET_CHARS}
             placeholder="Γράψε το μυστικό"
-            aria-label="Τι σκέφτεσαι πραγματικά;"
+            aria-label="Τι σκεφτόσουν πραγματικά;"
             onChange={(event) => onSecret(event.target.value.slice(0, MAX_SECRET_CHARS))}
           />
           {state.secretError ? (
@@ -639,7 +639,7 @@ function LostPhase({
             <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Μάντεψα</p>
             <p className="mt-1 text-lg text-white">{state.guess}</p>
             <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-              Εσύ σκέφτεσαι
+              Εσύ σκεφτόσουν
             </p>
             <p className="mt-1 text-lg text-cyan-100">{state.secret}</p>
           </div>

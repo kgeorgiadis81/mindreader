@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ",
+  title: "MINDREADER",
   description: "Σκέψου οτιδήποτε. Έχω 10 ερωτήσεις για να διαβάσω το μυαλό σου.",
 };
 
