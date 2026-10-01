@@ -13,7 +13,7 @@ export function Progress({ answered, total = 10 }: ProgressProps) {
       aria-valuemin={0}
       aria-valuemax={total}
       aria-valuenow={answered}
-      aria-label={`${answered} of ${total} questions answered`}
+      aria-label={`${answered} από ${total} ερωτήσεις απαντήθηκαν`}
     >
       {Array.from({ length: total }, (_, index) => {
         const filled = index < answered;

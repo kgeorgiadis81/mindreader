@@ -2,29 +2,29 @@ import type { Answer, HistoryEntry, MindReaderResponse } from "@/lib/mindreader-
 import { MAX_HISTORY } from "@/lib/mindreader-types";
 
 const QUESTIONS = [
-  "Is it a physical thing you could touch?",
-  "Is it alive — or was it once alive?",
-  "Is it a specific person, character, or named being?",
-  "Is it bigger than a loaf of bread?",
-  "Would most people recognize its name?",
-  "Is it something you encounter in ordinary daily life?",
-  "Is it primarily man-made?",
-  "Is it tied to entertainment, media, or art?",
-  "Would you usually find it indoors?",
-  "Is it something you could hold in one hand?",
+  "Είναι κάτι φυσικό που θα μπορούσες να αγγίξεις;",
+  "Είναι ζωντανό — ή ήταν κάποτε ζωντανό;",
+  "Είναι συγκεκριμένο πρόσωπο, χαρακτήρας ή ονομαστικός φορέας;",
+  "Είναι μεγαλύτερο από ένα καρβέλι ψωμί;",
+  "Θα αναγνώριζαν οι περισσότεροι το όνομά του;",
+  "Είναι κάτι που συναντάς στην καθημερινότητα;",
+  "Είναι κυρίως ανθρώπινης κατασκευής;",
+  "Συνδέεται με ψυχαγωγία, μέσα ή τέχνη;",
+  "Θα το έβρισκες συνήθως σε εσωτερικό χώρο;",
+  "Μπορείς να το κρατήσεις με το ένα χέρι;",
 ] as const;
 
 const REACTIONS = [
-  "Opening the channel.",
-  "Split the field.",
-  "Interesting.",
-  "The outline sharpens.",
-  "Not a crowd thought.",
-  "Closer.",
-  "The noise drops.",
-  "One thread left.",
-  "Almost visible.",
-  "All in.",
+  "Ανοίγει το κανάλι.",
+  "Κόβω το πεδίο.",
+  "Ενδιαφέρον.",
+  "Η σιλουέτα ξεκαθαρίζει.",
+  "Όχι μαζική σκέψη.",
+  "Πιο κοντά.",
+  "Ο θόρυβος πέφτει.",
+  "Μία κλωστή ακόμα.",
+  "Σχεδόν ορατό.",
+  "Όλα μέσα.",
 ] as const;
 
 function answerAt(history: HistoryEntry[], index: number): Answer | undefined {
@@ -45,21 +45,21 @@ function mockHunches(history: HistoryEntry[]): string[] {
   const media = isYes(history, 7);
 
   if (!physical && media) {
-    return ["Inception", "The Shawshank Redemption", "a song stuck in your head"];
+    return ["Inception", "The Shawshank Redemption", "ένα τραγούδι κολλημένο στο μυαλό σου"];
   }
   if (!physical && person) {
-    return ["a fictional character", "a historical figure", "someone you miss"];
+    return ["φανταστικός χαρακτήρας", "ιστορικό πρόσωπο", "κάποιον που λείπεις"];
   }
   if (!physical) {
-    return ["freedom", "home", "anxiety"];
+    return ["ελευθερία", "σπίτι", "άγχος"];
   }
   if (alive && person) {
-    return ["your mom", "Taylor Swift", "a coworker"];
+    return ["η μαμά σου", "Taylor Swift", "συνάδελφος"];
   }
   if (alive) {
-    return ["a golden retriever", "a house cat", "an elephant"];
+    return ["χρυσός ρετρίβερ", "σπιτό γάτο", "ελέφαντας"];
   }
-  return ["a smartphone", "a coffee mug", "a rubber duck"];
+  return ["ένα smartphone", "ένας φλίτζανας καφέ", "πλαστική πάπια"];
 }
 
 function mockFinalGuess(history: HistoryEntry[]): string {
@@ -75,18 +75,18 @@ function mockFinalGuess(history: HistoryEntry[]): string {
   const handheld = isYes(history, 9);
 
   if (!physical && media && famous) return "The Shawshank Redemption";
-  if (!physical && media) return "a song you cannot name cleanly";
-  if (!physical && person) return "a historical figure you admire";
-  if (!physical) return "the idea of home";
+  if (!physical && media) return "ένα τραγούδι που δεν μπορείς να ονομάσεις καθαρά";
+  if (!physical && person) return "ένα ιστορικό πρόσωπο που θαυμάζεις";
+  if (!physical) return "η ιδέα του σπιτιού";
   if (alive && person && famous) return "Taylor Swift";
-  if (alive && person) return "your mom";
-  if (alive && !person && big) return "an elephant";
-  if (alive) return "a golden retriever";
-  if (manmade && handheld && daily) return "your smartphone";
-  if (manmade && indoor && !big) return "a coffee mug";
-  if (manmade && big) return "a refrigerator";
-  if (!manmade && indoor) return "a houseplant";
-  return "a rubber duck";
+  if (alive && person) return "η μαμά σου";
+  if (alive && !person && big) return "ένας ελέφαντας";
+  if (alive) return "ένας χρυσός ρετρίβερ";
+  if (manmade && handheld && daily) return "το smartphone σου";
+  if (manmade && indoor && !big) return "ένας φλίτζανας καφέ";
+  if (manmade && big) return "ένα ψυγείο";
+  if (!manmade && indoor) return "ένα φυτό εσωτερικού χώρου";
+  return "μια πλαστική πάπια";
 }
 
 /** Local demo mind used only when OPENAI_API_KEY is missing. */

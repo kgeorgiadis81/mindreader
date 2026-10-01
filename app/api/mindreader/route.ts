@@ -8,7 +8,7 @@ export async function POST(request: Request): Promise<Response> {
   try {
     raw = await request.json();
   } catch {
-    return Response.json({ error: "Request body must be valid JSON." }, { status: 400 });
+    return Response.json({ error: "Το σώμα του αιτήματος πρέπει να είναι έγκυρο JSON." }, { status: 400 });
   }
 
   const { status, body } = await runMindReaderTurn(raw);

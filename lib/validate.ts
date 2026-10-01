@@ -31,34 +31,34 @@ function clipWords(text: string, maxWords: number): string {
 export function parseMindReaderRequest(body: unknown): HistoryEntry[] {
   const record = asRecord(body);
   if (!record) {
-    throw new HttpError(400, "Expected a JSON object with a history array.");
+    throw new HttpError(400, "Αναμένεται αντικείμενο JSON με πίνακα history.");
   }
 
   const { history } = record;
   if (!Array.isArray(history)) {
-    throw new HttpError(400, "history must be an array.");
+    throw new HttpError(400, "Το history πρέπει να είναι πίνακας.");
   }
 
   if (history.length > MAX_HISTORY) {
-    throw new HttpError(400, `history cannot exceed ${MAX_HISTORY} answers.`);
+    throw new HttpError(400, `Το history δεν μπορεί να έχει πάνω από ${MAX_HISTORY} απαντήσεις.`);
   }
 
   const parsed: HistoryEntry[] = [];
   for (let i = 0; i < history.length; i += 1) {
     const entry = asRecord(history[i]);
     if (!entry) {
-      throw new HttpError(400, `history[${i}] must be an object.`);
+      throw new HttpError(400, `Το history[${i}] πρέπει να είναι αντικείμενο.`);
     }
     const question = entry.question;
     const answer = entry.answer;
     if (typeof question !== "string" || question.trim().length === 0) {
-      throw new HttpError(400, `history[${i}].question must be a non-empty string.`);
+      throw new HttpError(400, `Το history[${i}].question πρέπει να είναι μη κενό κείμενο.`);
     }
     if (question.length > MAX_QUESTION_CHARS) {
-      throw new HttpError(400, `history[${i}].question exceeds ${MAX_QUESTION_CHARS} characters.`);
+      throw new HttpError(400, `Το history[${i}].question υπερβαίνει τους ${MAX_QUESTION_CHARS} χαρακτήρες.`);
     }
     if (!isAnswer(answer)) {
-      throw new HttpError(400, `history[${i}].answer must be yes, no, sometimes, or unknown.`);
+      throw new HttpError(400, `Το history[${i}].answer πρέπει να είναι yes, no, sometimes ή unknown.`);
     }
     parsed.push({ question: question.trim(), answer });
   }
@@ -104,7 +104,7 @@ export function normalizeModelOutput(
 ): MindReaderResponse {
   const record = asRecord(raw);
   if (!record) {
-    throw new HttpError(502, "Model returned an unreadable payload.");
+    throw new HttpError(502, "Το μοντέλο επέστρεψε μη αναγνώσιμο payload.");
   }
 
   const hunches = readHunches(record.hunches);
@@ -127,7 +127,7 @@ export function normalizeModelOutput(
   if (mustGuess) {
     action = "guess";
     question = null;
-    guess = guess ?? hunches[0] ?? "something only you would pick";
+    guess = guess ?? hunches[0] ?? "κάτι που μόνο εσύ θα διάλεγες";
   } else if (action === "guess") {
     const allowed = (mayGuessEarly && confidence >= 92 && guess) || (extremelyObvious && guess);
     if (!allowed) {
@@ -139,7 +139,7 @@ export function normalizeModelOutput(
   if (action === "question") {
     guess = null;
     if (!question) {
-      throw new HttpError(502, "Model did not return a question.");
+      throw new HttpError(502, "Το μοντέλο δεν επέστρεψε ερώτηση.");
     }
     if (!question.endsWith("?")) {
       question = `${question}?`;
@@ -172,11 +172,11 @@ export function normalizeModelOutput(
 export function parseModelText(outputText: string): unknown {
   const trimmed = outputText.trim();
   if (!trimmed) {
-    throw new HttpError(502, "Model returned empty output.");
+    throw new HttpError(502, "Το μοντέλο επέστρεψε κενή έξοδο.");
   }
   try {
     return JSON.parse(trimmed) as unknown;
   } catch {
-    throw new HttpError(502, "Model returned malformed JSON.");
+    throw new HttpError(502, "Το μοντέλο επέστρεψε κατεστραμμένο JSON.");
   }
 }

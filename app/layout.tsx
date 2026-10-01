@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MINDREADER",
-  description: "Think of anything. I get 10 questions to read your mind.",
+  title: "ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ",
+  description: "Σκέψου οτιδήποτε. Έχω 10 ερωτήσεις για να διαβάσω το μυαλό σου.",
 };
 
 export const viewport: Viewport = {
@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="el"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

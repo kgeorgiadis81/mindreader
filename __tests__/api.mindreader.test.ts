@@ -116,7 +116,7 @@ describe("POST /api/mindreader", () => {
     ]);
     expect(response.status).toBe(400);
     const body = await response.json();
-    expect(body.error).toMatch(/answer/i);
+    expect(body.error).toMatch(/answer|yes/i);
     expect(create).not.toHaveBeenCalled();
   });
 

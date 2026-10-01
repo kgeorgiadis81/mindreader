@@ -9,11 +9,11 @@ export const MINDREADER_JSON_SCHEMA = {
     action: {
       type: "string",
       enum: ["question", "guess"],
-      description: "Ask another question, or make the one final guess.",
+      description: "Ρώτα άλλη ερώτηση ή κάνε την μία τελική πρόβλεψη.",
     },
     question: {
       type: ["string", "null"],
-      description: "The next yes/no question. Null when action is guess.",
+      description: "Η επόμενη ερώτηση ναι/όχι στα Ελληνικά. Null όταν action είναι guess.",
     },
     questionNumber: {
       type: "integer",
@@ -26,15 +26,15 @@ export const MINDREADER_JSON_SCHEMA = {
     hunches: {
       type: "array",
       items: { type: "string" },
-      description: "Up to 3 specific candidate guesses the player might be thinking of.",
+      description: "Έως 3 συγκεκριμένες υποψήφιες προβλέψεις στα Ελληνικά.",
     },
     reaction: {
       type: ["string", "null"],
-      description: "Optional in-character aside, about 6 words or fewer.",
+      description: "Προαιρετική ατάκα στο χαρακτήρα, ~6 λέξεις ή λιγότερο, στα Ελληνικά.",
     },
     guess: {
       type: ["string", "null"],
-      description: "One specific final guess. Null when action is question.",
+      description: "Μία συγκεκριμένη τελική πρόβλεψη στα Ελληνικά. Null όταν action είναι question.",
     },
   },
   required: [

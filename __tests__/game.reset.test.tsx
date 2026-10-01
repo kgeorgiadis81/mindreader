@@ -20,11 +20,11 @@ describe("Game", () => {
       vi.fn(() =>
         jsonResponse({
           action: "question",
-          question: "Is it a physical object you can touch?",
+          question: "Είναι κάτι φυσικό που μπορείς να αγγίξεις;",
           questionNumber: 1,
           confidence: 11,
           hunches: [],
-          reaction: "Opening the channel.",
+          reaction: "Ανοίγει το κανάλι.",
           guess: null,
         }),
       ),
@@ -43,11 +43,11 @@ describe("Game", () => {
       .mockResolvedValueOnce(
         await jsonResponse({
           action: "question",
-          question: "Is it a physical object you can touch?",
+          question: "Είναι κάτι φυσικό που μπορείς να αγγίξεις;",
           questionNumber: 1,
           confidence: 11,
-          hunches: ["a rubber duck"],
-          reaction: "Opening the channel.",
+          hunches: ["μια πλαστική πάπια"],
+          reaction: "Ανοίγει το κανάλι.",
           guess: null,
         }),
       )
@@ -57,31 +57,31 @@ describe("Game", () => {
           question: null,
           questionNumber: 1,
           confidence: 96,
-          hunches: ["a rubber duck"],
-          reaction: "Caught it.",
-          guess: "a rubber duck",
+          hunches: ["μια πλαστική πάπια"],
+          reaction: "Σε πιάσαμε.",
+          guess: "μια πλαστική πάπια",
         }),
       );
 
     render(<Game />);
 
-    await user.click(screen.getByRole("button", { name: "START" }));
-    await user.click(screen.getByRole("button", { name: /YES — READ MY MIND/i }));
-    expect(await screen.findByText(/Is it a physical object you can touch/i)).toBeInTheDocument();
-    expect(screen.getByText("a rubber duck")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "ΞΕΚΙΝΑ" }));
+    await user.click(screen.getByRole("button", { name: /ΔΙΑΒΑΣΕ ΤΟ ΜΥΑΛΟ ΜΟΥ/i }));
+    expect(await screen.findByText(/φυσικό που μπορείς να αγγίξεις/i)).toBeInTheDocument();
+    expect(screen.getByText("μια πλαστική πάπια")).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "YES" }));
-    expect(await screen.findByText("a rubber duck")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: /YES!/i }));
+    await user.click(screen.getByRole("button", { name: "ΝΑΙ" }));
+    expect(await screen.findByText("μια πλαστική πάπια")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /ΝΑΙ!/i }));
 
-    expect(screen.getByText(/I read your mind/i)).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "PLAY AGAIN" }));
+    expect(screen.getByText(/Διάβασα το μυαλό σου/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "ΠΑΙΞΕ ΞΑΝΑ" }));
 
-    expect(screen.getByRole("button", { name: "START" })).toBeInTheDocument();
-    expect(screen.getByText(/Think of anything/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Is it a physical object you can touch/i)).not.toBeInTheDocument();
-    expect(screen.queryByText("a rubber duck")).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "PLAY AGAIN" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "ΞΕΚΙΝΑ" })).toBeInTheDocument();
+    expect(screen.getByText(/Σκέψου οτιδήποτε/i)).toBeInTheDocument();
+    expect(screen.queryByText(/φυσικό που μπορείς να αγγίξεις/i)).not.toBeInTheDocument();
+    expect(screen.queryByText("μια πλαστική πάπια")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "ΠΑΙΞΕ ΞΑΝΑ" })).not.toBeInTheDocument();
   });
 
   it("6. malformed API errors do not crash React", async () => {
@@ -91,11 +91,11 @@ describe("Game", () => {
     );
 
     render(<Game />);
-    await user.click(screen.getByRole("button", { name: "START" }));
-    await user.click(screen.getByRole("button", { name: /YES — READ MY MIND/i }));
+    await user.click(screen.getByRole("button", { name: "ΞΕΚΙΝΑ" }));
+    await user.click(screen.getByRole("button", { name: /ΔΙΑΒΑΣΕ ΤΟ ΜΥΑΛΟ ΜΟΥ/i }));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(PSYCHIC_GLITCH);
-    expect(screen.getByRole("button", { name: "TRY AGAIN" })).toBeInTheDocument();
-    expect(screen.getByText(/Think of something/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "ΔΟΚΙΜΑΣΕ ΞΑΝΑ" })).toBeInTheDocument();
+    expect(screen.getByText(/Σκέψου κάτι/i)).toBeInTheDocument();
   });
 });

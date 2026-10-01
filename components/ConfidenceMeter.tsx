@@ -11,7 +11,7 @@ export function ConfidenceMeter({ value }: ConfidenceMeterProps) {
     <div className="space-y-2">
       <div className="flex items-baseline justify-between gap-3">
         <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
-          Confidence
+          Εμπιστοσύνη
         </span>
         <span className="font-mono text-sm text-cyan-300 tabular-nums">{clamped}%</span>
       </div>
@@ -21,7 +21,7 @@ export function ConfidenceMeter({ value }: ConfidenceMeterProps) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={clamped}
-        aria-label="Mind-reading confidence"
+        aria-label="Εμπιστοσύνη ανάγνωσης νοός"
       >
         <div
           className={cn(

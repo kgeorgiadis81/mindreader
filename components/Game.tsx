@@ -17,27 +17,27 @@ import {
 type Phase = "welcome" | "think" | "question" | "guess" | "won" | "lost";
 
 const THINKING_LINES = [
-  "Reading the signal...",
-  "Narrowing possibilities...",
-  "Tracing the outline...",
-  "Listening between thoughts...",
-  "Mapping the residue...",
+  "Διαβάζω το σήμα...",
+  "Στενεύω τις πιθανότητες...",
+  "Ακολουθώ τη σιλουέτα...",
+  "Ακούω ανάμεσα στις σκέψεις...",
+  "Χαρτογραφώ το υπόλειμμα...",
 ];
 
 const WIN_LINES = [
-  "Don't look so surprised.",
-  "Your mind is louder than you think.",
-  "I wasn't guessing.",
-  "Ten questions was generous.",
-  "The static resolved.",
-  "Caught you.",
+  "Μην κοιτάς τόσο έκπληκτος.",
+  "Το μυαλό σου είναι πιο ηχηρό απ’ ό,τι νομίζεις.",
+  "Δεν μάντευα.",
+  "Δέκα ερωτήσεις ήταν γενναιοδωρία.",
+  "Ο θόρυβος καθάρισε.",
+  "Σε πιάσαμε.",
 ];
 
 const ANSWER_BUTTONS: { label: string; value: Answer; shortcut: string }[] = [
-  { label: "YES", value: "yes", shortcut: "Y" },
-  { label: "NO", value: "no", shortcut: "N" },
-  { label: "SOMETIMES / SORT OF", value: "sometimes", shortcut: "S" },
-  { label: "I DON'T KNOW", value: "unknown", shortcut: "U" },
+  { label: "ΝΑΙ", value: "yes", shortcut: "Y" },
+  { label: "ΟΧΙ", value: "no", shortcut: "O" },
+  { label: "ΜΕΡΙΚΑ / ΚΑΠΩΣ", value: "sometimes", shortcut: "S" },
+  { label: "ΔΕΝ ΞΕΡΩ", value: "unknown", shortcut: "U" },
 ];
 
 type GameState = {
@@ -136,10 +136,10 @@ function MindSignal({
   return (
     <section
       className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
-      aria-label="Mind signal"
+      aria-label="Σήμα νοός"
     >
       <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-300/80">
-        Mind signal
+        Σήμα νοός
       </p>
       <ConfidenceMeter value={confidence} />
       {hunches.length > 0 ? (
@@ -154,7 +154,7 @@ function MindSignal({
           ))}
         </ul>
       ) : (
-        <p className="mt-3 text-xs text-zinc-500">Signal forming…</p>
+        <p className="mt-3 text-xs text-zinc-500">Το σήμα διαμορφώνεται…</p>
       )}
       {reaction ? (
         <p className="mt-3 text-sm italic text-zinc-400" aria-live="polite">
@@ -303,10 +303,10 @@ export function Game() {
     }
     const text =
       state.phase === "won"
-        ? `MINDREADER read my mind in ${state.history.length} questions.`
-        : "I beat MINDREADER.";
+        ? `Ο ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ διάβασε το μυαλό μου σε ${state.history.length} ερωτήσεις.`
+        : "Νίκησα τον ΑΝΑΓΝΩΣΤΗ ΝΟΟΥ.";
     try {
-      await navigator.share({ title: "MINDREADER", text });
+      await navigator.share({ title: "ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ", text });
     } catch {
       // User cancelled share; ignore.
     }
@@ -327,9 +327,9 @@ export function Game() {
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pb-10 pt-8 sm:pt-12">
       <header className="mb-8 text-center">
         <p className="text-[11px] font-semibold uppercase tracking-[0.42em] text-cyan-300/80">
-          Transmission
+          Μετάδοση
         </p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-[0.28em] text-white">MINDREADER</h1>
+        <h1 className="mt-2 text-3xl font-semibold tracking-[0.28em] text-white">ΑΝΑΓΝΩΣΤΗΣ ΝΟΟΥ</h1>
       </header>
 
       <main className="flex flex-1 flex-col">
@@ -390,7 +390,7 @@ export function Game() {
             onReveal={() => {
               const trimmed = state.secret.trim();
               if (!trimmed) {
-                setState((prev) => ({ ...prev, secretError: "Type it. I can take it." }));
+                setState((prev) => ({ ...prev, secretError: "Γράψ’ το. Το αντέχω." }));
                 return;
               }
               setState((prev) => ({ ...prev, revealed: true, secretError: null, secret: trimmed }));
@@ -413,19 +413,19 @@ function Welcome({ onStart }: { onStart: () => void }) {
     <div className="flex flex-1 flex-col justify-center gap-8 text-center">
       <div className="space-y-3">
         <p className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
-          Think of anything.
+          Σκέψου οτιδήποτε.
         </p>
-        <p className="text-lg text-zinc-400">I get 10 questions to read your mind.</p>
+        <p className="text-lg text-zinc-400">Έχω 10 ερωτήσεις για να διαβάσω το μυαλό σου.</p>
       </div>
       <Button size="wide" onClick={onStart}>
-        START
+        ΞΕΚΙΝΑ
       </Button>
       <div className="space-y-3 text-sm leading-relaxed text-zinc-500">
         <p>
-          Pick a person, place, object, animal, movie, idea — anything. Don&apos;t type it. Just keep
-          it in your head.
+          Διάλεξε πρόσωπο, τόπο, αντικείμενο, ζώο, ταινία, ιδέα — οτιδήποτε. Μην το γράψεις. Κράτα
+          το στο μυαλό σου.
         </p>
-        <p>Be honest with your answers. Changing the answer halfway through ruins the magic.</p>
+        <p>Να είσαι ειλικρινής στις απαντήσεις. Αν αλλάξεις απάντηση στη μέση, χαλάει η μαγεία.</p>
       </div>
     </div>
   );
@@ -445,14 +445,14 @@ function Think({
   return (
     <div className="flex flex-1 flex-col justify-center gap-8 text-center">
       <div className="space-y-3">
-        <p className="text-3xl font-medium tracking-tight text-white">Think of something.</p>
-        <p className="text-lg text-zinc-400">Got it locked in your head?</p>
+        <p className="text-3xl font-medium tracking-tight text-white">Σκέψου κάτι.</p>
+        <p className="text-lg text-zinc-400">Το έχεις κλειδωμένο στο μυαλό σου;</p>
       </div>
       {error ? (
         <ErrorCard message={error} onRetry={onRetry} />
       ) : (
         <Button size="wide" onClick={onReady} disabled={submitting}>
-          YES — READ MY MIND
+          ΝΑΙ — ΔΙΑΒΑΣΕ ΤΟ ΜΥΑΛΟ ΜΟΥ
         </Button>
       )}
     </div>
@@ -474,7 +474,7 @@ function QuestionPhase({
     <div className="flex flex-1 flex-col gap-6">
       <div className="flex items-center justify-between gap-3">
         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
-          Question {state.questionNumber} / {MAX_HISTORY}
+          Ερώτηση {state.questionNumber} / {MAX_HISTORY}
         </p>
         <Progress answered={state.history.length} />
       </div>
@@ -527,27 +527,27 @@ function GuessPhase({
     <div className="flex flex-1 flex-col justify-center gap-8 text-center">
       <div className="space-y-4" aria-live="polite">
         {state.guessStep === 0 ? (
-          <p className="text-2xl font-medium text-white">I think I&apos;ve got it.</p>
+          <p className="text-2xl font-medium text-white">Νομίζω ότι το έχω.</p>
         ) : null}
         {state.guessStep >= 1 ? (
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-300">
-            You&apos;re thinking of...
+            Σκέφτεσαι...
           </p>
         ) : null}
         {state.guessStep >= 2 ? (
           <>
             <p className="text-3xl font-semibold tracking-tight text-white">{state.guess}</p>
-            <p className="font-mono text-sm text-cyan-300">Confidence {state.confidence}%</p>
+            <p className="font-mono text-sm text-cyan-300">Εμπιστοσύνη {state.confidence}%</p>
           </>
         ) : null}
       </div>
       {state.guessStep >= 2 ? (
         <div className="grid grid-cols-2 gap-3">
           <Button size="wide" onClick={onYes}>
-            YES! 🤯
+            ΝΑΙ! 🤯
           </Button>
           <Button size="wide" variant="outline" onClick={onNo}>
-            NOPE 😏
+            ΟΧΙ 😏
           </Button>
         </div>
       ) : (
@@ -575,19 +575,19 @@ function WonPhase({
   return (
     <div className="flex flex-1 flex-col justify-center gap-6 text-center">
       <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-300">
-        I read your mind.
+        Διάβασα το μυαλό σου.
       </p>
       {guess ? <p className="text-2xl font-semibold text-white">{guess}</p> : null}
       <p className="text-zinc-400">
-        Questions used: {questionsUsed} / {MAX_HISTORY}
+        Ερωτήσεις που χρησιμοποιήθηκαν: {questionsUsed} / {MAX_HISTORY}
       </p>
       <p className="text-sm italic text-zinc-500">{winLine}</p>
       <Button size="wide" onClick={onAgain}>
-        PLAY AGAIN
+        ΠΑΙΞΕ ΞΑΝΑ
       </Button>
       {canShare ? (
         <Button variant="ghost" onClick={onShare}>
-          Share
+          Κοινοποίηση
         </Button>
       ) : null}
     </div>
@@ -612,16 +612,16 @@ function LostPhase({
   return (
     <div className="flex flex-1 flex-col justify-center gap-6 text-center">
       <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-400">
-        You beat the machine.
+        Νίκησες το μηχάνημα.
       </p>
       {!state.revealed ? (
         <>
-          <p className="text-lg text-zinc-300">What were you actually thinking of?</p>
+          <p className="text-lg text-zinc-300">Τι σκέφτεσαι πραγματικά;</p>
           <Input
             value={state.secret}
             maxLength={MAX_SECRET_CHARS}
-            placeholder="Type the secret"
-            aria-label="What were you actually thinking of?"
+            placeholder="Γράψε το μυστικό"
+            aria-label="Τι σκέφτεσαι πραγματικά;"
             onChange={(event) => onSecret(event.target.value.slice(0, MAX_SECRET_CHARS))}
           />
           {state.secretError ? (
@@ -630,28 +630,28 @@ function LostPhase({
             </p>
           ) : null}
           <Button size="wide" onClick={onReveal}>
-            REVEAL
+            ΑΠΟΚΑΛΥΨΗ
           </Button>
         </>
       ) : (
         <div className="space-y-4">
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-left">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">I guessed</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Μάντεψα</p>
             <p className="mt-1 text-lg text-white">{state.guess}</p>
             <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-              You were thinking
+              Εσύ σκέφτεσαι
             </p>
             <p className="mt-1 text-lg text-cyan-100">{state.secret}</p>
           </div>
-          <p className="text-sm text-zinc-500">Respect.</p>
+          <p className="text-sm text-zinc-500">Σεβασμός.</p>
         </div>
       )}
       <Button size="wide" variant={state.revealed ? "default" : "outline"} onClick={onAgain}>
-        PLAY AGAIN
+        ΠΑΙΞΕ ΞΑΝΑ
       </Button>
       {canShare ? (
         <Button variant="ghost" onClick={onShare}>
-          Share
+          Κοινοποίηση
         </Button>
       ) : null}
     </div>
@@ -665,7 +665,7 @@ function ErrorCard({ message, onRetry }: { message: string; onRetry: () => void 
         {message || PSYCHIC_GLITCH}
       </p>
       <Button variant="outline" size="wide" onClick={onRetry}>
-        TRY AGAIN
+        ΔΟΚΙΜΑΣΕ ΞΑΝΑ
       </Button>
     </div>
   );
